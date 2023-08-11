@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/survey_form_info?useSSL=false
+    username: root
+    password: Deshna@13
+spring.jpa:
+  hibernate.ddl-auto: create
+
+  cors:
+    allowed-origins:
+      - "http://localhost:63342"

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>
+        Build a Survey Form using HTML and CSS
+    </title>
+
+    <style>
+		body {
+			background-color: #05c46b;
+			font-family: Verdana;
+			text-align: center;
+		}
+
+		/* Styling the Form (Color, Padding, Shadow) */
+		form {
+			background-color: #fff;
+			max-width: 500px;
+			margin: 50px auto;
+			padding: 30px 20px;
+			box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+		}
+
+		/* Styling form-control Class */
+		.form-control {
+			text-align: left;
+			margin-bottom: 25px;
+		}
+
+		/* Styling form-control Label */
+		.form-control label {
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		/* Styling form-control input,
+		select, textarea */
+		.form-control input,
+		.form-control select,
+		.form-control textarea {
+			border: 1px solid #777;
+			border-radius: 2px;
+			font-family: inherit;
+			padding: 10px;
+			display: block;
+			width: 95%;
+		}
+
+
+
+		/* Styling Button */
+		button {
+			background-color: #05c46b;
+			border: 1px solid #777;
+			border-radius: 2px;
+			font-family: inherit;
+			font-size: 21px;
+			display: block;
+			width: 100%;
+			margin-top: 50px;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+
+<body>
+<h1> Survey Form</h1>
+
+<!-- Create Form -->
+<form id="form" >
+
+    <!-- Details -->
+    <div class="form-control">
+        <label for="studentId" id="label-studentId">
+            Student Id:
+        </label>
+        <!-- Input Type Text -->
+        <input type="text"
+               id="studentId"
+               name="studentId" />
+    </div>
+
+    <div class="form-control">
+        <label for="email" id="label-email">
+            Email:
+        </label>
+
+        <!-- Input Type Email-->
+        <input type="email"
+               id="email"
+               name="email" />
+    </div>
+
+    <div class="form-control">
+        <label for="name" id="label-name">
+            Name:
+        </label>
+
+        <!-- Input Type Text-->
+        <input type="text"
+               id="name"
+               name="name" />
+    </div>
+
+    <div class="form-control">
+        <label for="contactNumber" id="label-contactNumber">
+            Contact Number:
+        </label>
+
+        <!-- Input Type Text-->
+        <input type="text"
+               id="contactNumber"
+               name="contactNumber" />
+    </div>
+    <div class="form-control">
+        <label for="yearOfPassing" id="label-yearOfPassing">
+            Year Of Passing:
+        </label>
+
+        <!-- Dropdown options -->
+        <select name="yearOfPassing" id="yearOfPassing">
+            <option >Select</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+
+        </select>
+    </div>
+
+    <div class="form-control">
+        <label for="Branch" id="label-Branch">
+            Branch:
+        </label>
+
+        <!-- Dropdown options -->
+        <select name="branch" id="Branch">
+            <option >Select</option>
+            <option value="B.Tech-CS">B.Tech-CS</option>
+            <option value="B.Tech-EC">B.Tech-EC</option>
+            <option value="B.Tech-IT">B.Tech-IT</option>
+            <option value="B.Tech-EE">B.Tech-EE</option>
+        </select>
+    </div>
+
+    <div class="form-control">
+        <label for="College" id="label-College">
+            College Name:
+        </label>
+
+        <!-- Input Type Text-->
+        <input type="text"
+               id="College"
+               name="collegeName" />
+    </div>
+
+    <div class="form-control">
+        <label for="internshipDomain" id="label-internshipDomain">
+            Domain Of Internship:
+        </label>
+
+        <!-- Dropdown options -->
+        <select name="internshipDomain" id="internshipDomain">
+            <option >Select</option>
+            <option value="App Development">App Development</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Java Programming">Java Programming</option>
+            <option value="Python Programming">Python Programming</option>
+            <option value="Full Stack Development">Full Stack  Development</option>
+        </select>
+    </div>
+
+    <div class="form-control">
+        <label for="Experience" id="label-Experience">
+            How was your experience in Tarento?
+        </label>
+
+        <!-- multi-line text input control -->
+        <textarea name="experience" id="Experience"
+                  placeholder="Enter your Experience here" cols="90" rows="20">
+			</textarea>
+    </div>
+
+    <div class ="form-control">
+    <button type="button" value="submit" onclick="submitForm()">
+        Submit
+    </button>
+        <button type="reset" value="reset">
+            Reset
+        </button>
+    </div>
+</form>
+
+<script>
+    function submitForm() {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            const form = document.getElementById('form');
+            console.log('form', form);
+            const formData = new FormData(form);
+console.log('formData', formData);
+            // Create an object with form field values
+            const formValues = {};
+            formData.forEach((value, key) => {
+                formValues[key] = value;
+            });
+console.log('formValues', formValues);
+ // Send a POST request with JSON data
+
+            fetch('http://localhost:8080/surveyform/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify() // Convert form values to JSON
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle success response (if needed)
+                console.log('Data submitted successfully:', data);
+            })
+            .catch(error => {
+                // Handle error (if needed)
+                console.error('Error submitting data:', error);
+            });
+}
+</script>
+
+
+<!--<script>-->
+<!--        function submitForm() {-->
+<!--            event.preventDefault(); // Prevent the default form submission behavior-->
+
+<!--            const form = document.getElementById('form');-->
+<!--            const formData = new FormData(form);-->
+
+<!--            fetch('http://localhost:8080/surveyform/submit', {-->
+<!--                method: 'POST',-->
+<!--                body: formData-->
+<!--            })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                // Handle success response (if needed)-->
+<!--                console.log('Data submitted successfully:', data);-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                // Handle error (if needed)-->
+<!--                console.error('Error submitting data:', error);-->
+<!--            });-->
+<!--        }-->
+<!--    </script>-->
+</body>
+
+
+</html>
